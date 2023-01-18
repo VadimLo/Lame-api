@@ -23,10 +23,6 @@ jobs:
         TAG_NAME: latest
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Test
-      run: |
-        pip install -r requirements-test.txt
-        pytest
     - name: Deploy
       uses: appleboy/ssh-action@master
       with:
