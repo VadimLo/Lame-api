@@ -1,0 +1,40 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Build and push Docker image
+      uses: Docker/setup-docker-action@v1
+      with:
+        context: .
+        tags: ${{ env.REGISTRY_NAME }}/${{ env.IMAGE_NAME }}:${{ env.TAG_NAME }}
+      env:
+        REGISTRY_NAME: myregistry
+        IMAGE_NAME: myimage
+        TAG_NAME: ${{ env.TAG_NAME }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Test
+      run: |
+        pip install -r requirements-test.txt
+        pytest
+    - name: Deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY_PROD }}
+        port: 22
+        script: |
+          docker pull ${{ env.REGISTRY_NAME }}/${{ env.IMAGE_NAME }}:${{ env.TAG_NAME }}
+          docker stop my_container
+          docker rm my_container
+          docker run --name my_container -d ${{ env.REGISTRY_NAME }}/${{ env.IMAGE_NAME }}:${{ env.TAG_NAME }}
