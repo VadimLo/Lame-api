@@ -2,6 +2,7 @@ services:
   web:
     build:
       context: app
+      dockerfile: app/Dockerfile
       target: dev-envs
     stop_signal: SIGINT
     networks:
