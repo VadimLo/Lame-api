@@ -33,14 +33,20 @@ jobs:
     - run: pwd
     - run: ls -al
     - run: docker compose version
-    - name: Build and push
-      uses: docker/build-push-action@v3
-      with:
-        context: .
-#        file: app/Dockerfile
-        docker-compose-file: docker-compose.yml
-        push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/lame:latest
+    - name: Set up Docker Compose
+      uses: docker/setup-compose@v2
+    - name: Build and push services
+      run: |
+        docker-compose build --tag ${{ secrets.DOCKER_USERNAME }}/lame:latest
+        docker-compose push --tag ${{ secrets.DOCKER_USERNAME }}/lame:latest
+#    - name: Build and push
+#      uses: docker/build-push-action@v3
+#      with:
+#        context: .
+##        file: app/Dockerfile
+#        docker-compose-file: docker-compose.yml
+#        push: true
+#        tags: ${{ secrets.DOCKER_USERNAME }}/lame:latest
     - name: Deploy
       uses: appleboy/ssh-action@master
       with:
