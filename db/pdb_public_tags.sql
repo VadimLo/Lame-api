@@ -1,0 +1,17 @@
+INSERT INTO public.tags (id, name, parent_id) VALUES (1, 'asd', null);
+INSERT INTO public.tags (id, name, parent_id) VALUES (19, 'character', 1);
+INSERT INTO public.tags (id, name, parent_id) VALUES (20, 'girl', 19);
+INSERT INTO public.tags (id, name, parent_id) VALUES (22, 'boy', 19);
+INSERT INTO public.tags (id, name, parent_id) VALUES (29, 'nazuna', 20);
+INSERT INTO public.tags (id, name, parent_id) VALUES (30, 'makima', 20);
+INSERT INTO public.tags (id, name, parent_id) VALUES (31, 'kaguya', 20);
+INSERT INTO public.tags (id, name, parent_id) VALUES (32, 'title', 1);
+INSERT INTO public.tags (id, name, parent_id) VALUES (33, 'kaguya-sama', 32);
+INSERT INTO public.tags (id, name, parent_id) VALUES (34, 'chika', 20);
+INSERT INTO public.tags (id, name, parent_id) VALUES (35, 'chainawman', 32);
+INSERT INTO public.tags (id, name, parent_id) VALUES (36, 'vermeil', 20);
+INSERT INTO public.tags (id, name, parent_id) VALUES (37, 'vermeil in gold', 32);
+INSERT INTO public.tags (id, name, parent_id) VALUES (38, '2b', 20);
+INSERT INTO public.tags (id, name, parent_id) VALUES (39, 'nier automata', 32);
+INSERT INTO public.tags (id, name, parent_id) VALUES (40, 'shikimori', 20);
+INSERT INTO public.tags (id, name, parent_id) VALUES (41, 'Shikimori not just cute', 32);
