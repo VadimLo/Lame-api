@@ -15,11 +15,12 @@ jobs:
       uses: Docker/build-push-action@v2
       with:
         context: .
+        file: app/Dockerfile
         tags: ${{ env.REGISTRY_NAME }}/${{ env.IMAGE_NAME }}:${{ env.TAG_NAME }}
       env:
         REGISTRY_NAME: myregistry
         IMAGE_NAME: myimage
-        TAG_NAME: lame
+        TAG_NAME: latest
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - name: Test
