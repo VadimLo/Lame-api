@@ -3,7 +3,8 @@ FROM --platform=$BUILDPLATFORM python:3.10-alpine AS builder
 
 WORKDIR /code
 
-COPY requirements.txt /code
+
+COPY /app/requirements.txt /code
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip3 install -r requirements.txt
 
