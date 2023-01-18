@@ -36,7 +36,7 @@ jobs:
         context: .
         file: app/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/lame:latest
+        tags: ${{ secrets.DOCKER_USERNAME }}/lame:latest
 #     - name: Deploy
 #       uses: appleboy/ssh-action@master
 #       with:
