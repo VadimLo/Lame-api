@@ -35,6 +35,7 @@ jobs:
       with:
         context: .
 #        file: app/Dockerfile
+        docker-compose-file: compose.yaml
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/lame:latest
     - name: Deploy
