@@ -19,7 +19,7 @@ jobs:
       env:
         REGISTRY_NAME: myregistry
         IMAGE_NAME: myimage
-        TAG_NAME: ${{ env.TAG_NAME }}
+        TAG_NAME: lame
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - name: Test
