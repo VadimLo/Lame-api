@@ -37,15 +37,15 @@ jobs:
         file: app/Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/lame:latest
-#     - name: Deploy
-#       uses: appleboy/ssh-action@master
-#       with:
-#         host: ${{ secrets.HOST }}
-#         username: ${{ secrets.USERNAME }}
-#         key: ${{ secrets.SSH_PRIVATE_KEY_PROD }}
-#         port: 22
-#         script: |
-#           docker pull ${{ env.REGISTRY_NAME }}/${{ env.IMAGE_NAME }}:${{ env.TAG_NAME }}
-#           docker stop my_container
-#           docker rm my_container
-#           docker run --name my_container -d ${{ env.REGISTRY_NAME }}/${{ env.IMAGE_NAME }}:${{ env.TAG_NAME }}
+    - name: Deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY_PROD }}
+        port: 22
+        script: |
+          docker pull ${{ secrets.DOCKER_USERNAME }}/lame:latest
+          docker stop my_container
+          docker rm my_container
+          docker run --name my_container -d ${{ secrets.DOCKER_USERNAME }}/lame:latest
