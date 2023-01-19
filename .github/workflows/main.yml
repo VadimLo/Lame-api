@@ -38,7 +38,7 @@ jobs:
     - name: Build and push services
       run: |
         docker-compose build --tag ${{ secrets.DOCKER_USERNAME }}/lame:latest
-        docker-compose push --tag ${{ secrets.DOCKER_USERNAME }}/lame:latest
+        docker-compose push
 #    - name: Build and push
 #      uses: docker/build-push-action@v3
 #      with:
