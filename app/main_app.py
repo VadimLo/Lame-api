@@ -82,7 +82,7 @@ def delete_and_commit(obj):
 
 @app.route('/')
 def hello():
-    return "Hello World!-adas"
+    return "Hello World! - Vadim"
 
 
 @app.route('/tag', methods=['GET', 'POST', 'DELETE'])

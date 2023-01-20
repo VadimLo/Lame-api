@@ -40,7 +40,7 @@ jobs:
         port: 22
         script: |
           docker-compose -f /opt/docker-compose/docker-compose.yml pull
-          docker-compose -f /opt/docker-compose/docker-compose.yml up -d
+          docker-compose -f /opt/docker-compose/docker-compose.yml up --no-build -d
           docker system prune -af
 #    - name: Deploy
 #      uses: appleboy/ssh-action@master
