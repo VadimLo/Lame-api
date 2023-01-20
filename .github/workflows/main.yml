@@ -11,51 +11,45 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-#     - name: Build and push Docker image
-#       uses: Docker/build-push-action@v2
-#       with:
-#         context: .
-#         file: app/Dockerfile
-#         tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.TAG_NAME }}
-#       env:
-#         REGISTRY_NAME: myregistry
-#         IMAGE_NAME: myimage
-#         TAG_NAME: latest
-#         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-#         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - name: Login to Docker Hub
       uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-#    - name: Set up Docker Buildx
-#      uses: docker/setup-buildx-action@v2
     - run: pwd
     - run: ls -al
     - run: docker compose version
-#    - name: Set up Docker in Docker
-#      uses: docker/setup-dind-action@v2
     - name: Build and push services
       run: |
         docker compose build
         docker compose push
-#    - name: Build and push
-#      uses: docker/build-push-action@v3
-#      with:
-#        context: .
-##        file: app/Dockerfile
-#        docker-compose-file: docker-compose.yml
-#        push: true
-#        tags: ${{ secrets.DOCKER_USERNAME }}/lame:latest
-    - name: Deploy
-      uses: appleboy/ssh-action@master
+    - name: Copy compose file to server
+      uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY_PROD }}
-        port: 22
-        script: |
-          docker pull ${{ secrets.DOCKER_USERNAME }}/lame:latest
-          docker stop my_container
-          docker rm my_container
-          docker run --name my_container -d ${{ secrets.DOCKER_USERNAME }}/lame:latest
+        source: docker-compose.yml
+        target: /opt/to/docker-compose/
+    - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_KEY }}
+          script: |
+            docker-compose -f /opt/docker-compose/docker-compose.yml pull
+            docker-compose -f /opt/docker-compose/docker-compose.yml up -d
+            docker system prune -af
+#    - name: Deploy
+#      uses: appleboy/ssh-action@master
+#      with:
+#        host: ${{ secrets.HOST }}
+#        username: ${{ secrets.USERNAME }}
+#        key: ${{ secrets.SSH_PRIVATE_KEY_PROD }}
+#        port: 22
+#        script: |
+#          docker pull ${{ secrets.DOCKER_USERNAME }}/lame:latest
+#          docker stop my_container
+#          docker rm my_container
+#          docker run --name my_container -d ${{ secrets.DOCKER_USERNAME }}/lame:latest
