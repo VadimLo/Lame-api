@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
       target: dev-envs
     stop_signal: SIGINT
-#    image: lame:latest
+    image: vadimlo/lame:latest
     networks:
       - main
     ports:
