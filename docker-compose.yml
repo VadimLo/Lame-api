@@ -13,7 +13,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   db:
-    image: postgres1:latest
+    image: postgres:latest
     environment:
       - POSTGRES_DB=pdb
       - POSTGRES_USER=postgres
