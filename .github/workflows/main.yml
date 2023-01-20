@@ -21,8 +21,8 @@ jobs:
     - run: docker compose version
     - name: Build and push services
       run: |
-        docker compose build
-        docker compose push
+        docker compose build web
+        docker compose push web
     - name: Copy compose file to server
       uses: appleboy/scp-action@master
       with:
@@ -30,7 +30,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY_PROD }}
         source: docker-compose.yml
-        target: /opt/to/docker-compose/
+        target: /opt/docker-compose/
     - name: Deploy to server
       uses: appleboy/ssh-action@master
       with:
