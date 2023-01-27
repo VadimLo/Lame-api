@@ -15,3 +15,4 @@ INSERT INTO public.tags (id, name, parent_id) VALUES (38, '2b', 20);
 INSERT INTO public.tags (id, name, parent_id) VALUES (39, 'nier automata', 32);
 INSERT INTO public.tags (id, name, parent_id) VALUES (40, 'shikimori', 20);
 INSERT INTO public.tags (id, name, parent_id) VALUES (41, 'Shikimori not just cute', 32);
+INSERT INTO public.tags (id, name, parent_id) VALUES (42, 'kei', 20);

@@ -17,7 +17,6 @@ class PresignType(enum.Enum):
 
 
 def create_presigned_url(object_name, c_type, p_type, bucket_name="Lame-bucket", expiration=3600):
-    print(p_type)
     response = s3_client.generate_presigned_url(
         p_type,
         Params={

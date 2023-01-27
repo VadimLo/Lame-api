@@ -11,18 +11,22 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 COPY . .
 
 ENV FLASK_APP main_app.py
-ENV FLASK_ENV development
-ENV FLASK_RUN_PORT 8000
-ENV FLASK_RUN_HOST 0.0.0.0
+ENV FLASK_DEBUG 1
+#ENV FLASK_RUN_PORT 8000
+#ENV FLASK_RUN_HOST 0.0.0.0
+#
+#EXPOSE 8000
 
-EXPOSE 8000
+#CMD ["flask", "run"]
 
-CMD ["flask", "run"]
+CMD ["gunicorn", "main_app:app", "-b", "0.0.0.0:8000"]
 
 #ENTRYPOINT ["python3"]
 #CMD ["main_app.py"]
 
 FROM builder as dev-envs
+
+
 
 #RUN <<EOF
 #apk update
