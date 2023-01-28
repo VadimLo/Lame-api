@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from s3_service import create_presigned_url, PresignType
 
 app = Flask(__name__)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@127.0.0.1:5432/pdb'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@db:5432/pdb'
 db = SQLAlchemy(app)
 
@@ -32,6 +33,12 @@ class Post(db.Model):
     ff_updated_at = db.Column(db.DateTime, nullable=True)
     tags = db.relationship('Tag', secondary=tags_posts, lazy='subquery',
                            back_populates='posts', cascade="delete")
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'ff': self.ff,
+        }
 
 
 class Tag(db.Model):
@@ -127,6 +134,13 @@ def post():
         _post = db.session.query(Post).get(_id)
         save_and_commit(_post)
         return jsonify('true')
+
+
+@app.route('/postByTag/<int:_id>', methods=['GET'])
+def post_by_tag(_id):
+    res = db.session.query(Tag).get(_id)
+    pre_url = 'https://lame-bucket.s3.us-west-004.backblazeb2.com/thum/'
+    return jsonify([pre_url + _post.ff for _post in res.posts])
 
 
 @app.route('/getPresign/bulk', methods=['POST'])
