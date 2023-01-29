@@ -12,14 +12,8 @@ COPY . .
 
 ENV FLASK_APP main_app.py
 ENV FLASK_DEBUG 1
-#ENV FLASK_RUN_PORT 8000
-#ENV FLASK_RUN_HOST 0.0.0.0
-#
-#EXPOSE 8000
 
-#CMD ["flask", "run"]
-
-CMD ["gunicorn", "main_app:app", "-b", "127.0.0.1:8000"]
+CMD ["gunicorn", "main_app:app", "-b", "0.0.0.0:8000"]
 
 #ENTRYPOINT ["python3"]
 #CMD ["main_app.py"]
