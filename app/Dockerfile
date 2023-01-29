@@ -19,7 +19,7 @@ ENV FLASK_DEBUG 1
 
 #CMD ["flask", "run"]
 
-CMD ["gunicorn", "main_app:app", "-b", "0.0.0.0:8000"]
+CMD ["gunicorn", "main_app:app", "-b", "127.0.0.1:8000"]
 
 #ENTRYPOINT ["python3"]
 #CMD ["main_app.py"]
