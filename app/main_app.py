@@ -140,7 +140,7 @@ def post():
 @app.route('/postByTag/<int:_id>', methods=['GET'])
 def post_by_tag(_id):
     res = db.session.query(Tag).get(_id)
-    pre_url = 'https://lame-bucket.s3.us-west-004.backblazeb2.com/thum/'
+    pre_url = 'https://cdn.ae-lame.com/file/Lame-bucket/thum/'
     return jsonify([pre_url + _post.ff for _post in res.posts])
 
 
@@ -164,8 +164,6 @@ def get_all_presets():
 @app.route('/preset/<int:_id>', methods=['GET'])
 def get_preset_download_url(_id):
     preset = Preset.query.get(_id)
-    # print(preset.to_dict())
-    # print(create_presigned_url('preset/' + preset.key, 'audio/mpeg', PresignType.GET.value))
     return create_presigned_url('preset/' + preset.key, 'audio/mpeg', PresignType.GET.value)
 
 

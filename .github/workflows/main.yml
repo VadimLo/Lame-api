@@ -16,9 +16,6 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-    - run: pwd
-    - run: ls -al
-    - run: docker compose version
     - name: Build and push services
       run: |
         docker compose build web
@@ -42,15 +39,3 @@ jobs:
           docker-compose -f /opt/docker-compose/docker-compose.yml pull
           docker-compose -f /opt/docker-compose/docker-compose.yml up --no-build -d
           docker system prune -af
-#    - name: Deploy
-#      uses: appleboy/ssh-action@master
-#      with:
-#        host: ${{ secrets.HOST }}
-#        username: ${{ secrets.USERNAME }}
-#        key: ${{ secrets.SSH_PRIVATE_KEY_PROD }}
-#        port: 22
-#        script: |
-#          docker pull ${{ secrets.DOCKER_USERNAME }}/lame:latest
-#          docker stop my_container
-#          docker rm my_container
-#          docker run --name my_container -d ${{ secrets.DOCKER_USERNAME }}/lame:latest
